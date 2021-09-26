@@ -2,6 +2,7 @@ package com.example.createroute;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         Button btnSetStartTime = (Button) findViewById(R.id.btnSetStartTime);
@@ -53,5 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 eTimePicker.show();
             }
         });
+    }
+
+    public void mOnClick(View v){
+        Intent startPosition = new Intent(this, RouteSelector.class);
+        startActivity(startPosition);
     }
 }
