@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">createRoute</string>
+
     <string name="setStartTime">시작 시간 설정</string>
     <string name="setEndTime">마감 시간 설정</string>
+
+    <string-array name="bus_num">
+        <item>110</item>
+        <item>101</item>
+        <item>100</item>
+    </string-array>
+
+    <string-array name="station_name">
+        <item>창원대학교</item>
+        <item>창원대학교</item>
+        <item>창원대학교 입구</item>
+    </string-array>
+
 </resources>

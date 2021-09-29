@@ -1,6 +1,9 @@
 package com.example.createroute;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +16,29 @@ import android.widget.TimePicker;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView startPointRe;
+    String bus[], station[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //Time Setting Buttons
         Button btnSetStartTime = (Button) findViewById(R.id.btnSetStartTime);
         Button btnSetEndTime = (Button) findViewById(R.id.btnSetEndTime);
-
-
         TextView btnStartTime = findViewById(R.id.btnSetStartTime);
         TextView btnEndTime = findViewById(R.id.btnSetEndTime);
 
+        //Start Point View
+        startPointRe = findViewById(R.id.startPointView);
+        bus = getResources().getStringArray(R.array.bus_num);
+        station = getResources().getStringArray(R.array.station_name);
+        StartPointAdapter spAdapter = new StartPointAdapter(this, bus, station);
+        startPointRe.setAdapter(spAdapter);
+        startPointRe.setLayoutManager(new LinearLayoutManager(this));
+
+        //Time Setting listener
         btnSetStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
