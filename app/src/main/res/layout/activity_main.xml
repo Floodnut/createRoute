@@ -133,8 +133,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/startPointView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="360dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/startPointSelector"

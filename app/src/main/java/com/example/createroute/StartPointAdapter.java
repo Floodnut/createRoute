@@ -10,10 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 
 public class StartPointAdapter extends RecyclerView.Adapter<StartPointAdapter.ViewHolder> {
-    String busNumber[], stationName[];
+    List busNumber, stationName;
     Context context;
+
+    public StartPointAdapter(MainActivity cxt, List busList, List stationList) {
+        context = cxt;
+        this.busNumber = busList;
+        this.stationName = stationList;
+        System.out.println(cxt);
+        System.out.println(busList);
+        System.out.println(stationList);
+    }
 
     @NonNull
     @Override
@@ -25,15 +36,15 @@ public class StartPointAdapter extends RecyclerView.Adapter<StartPointAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bn.setText(busNumber[position]);
-        holder.sn.setText(stationName[position]);
+        holder.bn.setText((String)busNumber.get(position));
+        holder.sn.setText((String)stationName.get(position));
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MainActivity.class);
-                i.putExtra("bus_num",busNumber[holder.getAdapterPosition()]);
-                i.putExtra("station_name",stationName[holder.getAdapterPosition()]);
+                i.putExtra("bus_num", (int[]) busNumber.get(holder.getAdapterPosition()));
+                i.putExtra("station_name",(int[])stationName.get(holder.getAdapterPosition()));
                 context.startActivity(i);
             }
         });
@@ -41,7 +52,7 @@ public class StartPointAdapter extends RecyclerView.Adapter<StartPointAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return busNumber.length;
+        return busNumber.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -54,11 +65,11 @@ public class StartPointAdapter extends RecyclerView.Adapter<StartPointAdapter.Vi
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
-
+    /*
     public StartPointAdapter(Context cxt, String bNum[], String sName[]){
         context = cxt;
         busNumber = bNum;
         stationName = sName;
-    }
+    }*/
 
 }

@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/activity_route_selector.xml" value="0.18291275726788292" />
         <entry key="app/src/main/res/layout/start_pointview.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/time_selector.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/menu/search_menu.xml" value="0.3026041666666667" />
+        <entry key="app/src/main/res/xml/network_config.xml" value="0.3026041666666667" />
       </map>
     </option>
   </component>
