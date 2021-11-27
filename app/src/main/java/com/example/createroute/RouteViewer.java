@@ -112,18 +112,19 @@ public class RouteViewer extends AppCompatActivity {
 
     //버스 선택 후 메인액티비티로 전달
     public void mOnBusClose(View v){
-        //if(selectedRouteList.size() == 0 || selectedRouteList == null){
-        //    bandy.close();
-        //    finish();
-        //}else {
-        //데이터 전달하기
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Route_List", selectedRouteList);
-        setResult(RESULT_OK, intent);
-        bandy.close();
-        //액티비티(팝업) 닫기
-        finish();
-        //}
+        if(selectedRouteList == null || selectedRouteList.size() == 0){
+            bandy.close();
+            finish();
+        }else {
+            //데이터 전달하기
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("Route_List", selectedRouteList);
+            setResult(RESULT_OK, intent);
+            bandy.close();
+            //액티비티(팝업) 닫기
+            finish();
+            //}
+        }
     }
 
     public class myDBHelper extends SQLiteOpenHelper{
