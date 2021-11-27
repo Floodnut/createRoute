@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".RouteSelector"
+    tools:context=".RouteViewer"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -25,21 +25,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/noBtn"
+            android:id="@+id/nobBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="mOnBusClose"
-            android:text="취소"
-            tools:ignore="OnClick" />
+            android:onClick="OnClick"
+            android:text="취소" />
         <Button
-            android:id="@+id/yesBtn"
+            android:id="@+id/yesbBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="mOnBusClose"
+            android:onClick="OnClick"
             android:text="선택"
-            tools:ignore="OnClick" />
+  />
     </LinearLayout>
 
 </LinearLayout >

@@ -8,8 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,29 +41,25 @@ import java.util.List;
 import java.util.Map;
 
 public class RouteViewer extends AppCompatActivity {
-    String whereSelected = "창원시";
-    String startBusList;
-    //final static int changwonCode = 38010;
+
     private final String key = "-";
     private List<String> list;
     private ListView listView;
-    private EditText editSearch;
-    private SearchAdapter searchAdapter;
+
     private ArrayList<String> arrayList;
     private int eventType;
     Resources res;
-    String[] localNodes_Name;
-    String[] localNodes_ID;
-    String[] localNodes_TP;
-    String[] localNodes_GPS_LONG;
-    String[] localNodes_GPS_LATI;
-
-    private String selectedName;
-    private String selectedID;
-    private String selectedGPS_Long;
-    private String selectedGPS_Lati;
+    Preparation_Adapter mAdapter;
+    ArrayList<Preparation_item> items;
     private String selectedNodeId;
-    private ArrayList<String> selectedRouteList;
+    private String selectedNodeName;
+    private Integer searchedRouteCount;
+
+    private ArrayList<String> searchedRouteIdList = new ArrayList<String>();
+    private ArrayList<String> searchedRouteNameList = new ArrayList<String>();
+
+    public ArrayList<String> selectedRouteIdList;
+    public ArrayList<String> selectedRouteNameList;
 
     private myDBHelper busHelper = new myDBHelper(this);;
     SQLiteDatabase bandy;
@@ -97,35 +96,87 @@ public class RouteViewer extends AppCompatActivity {
         Intent node = getIntent();
         selectedNodeId = node.getStringExtra("nodeid");
         bandy = busHelper.getReadableDatabase();
-        //busHelper.onCreate(bandy);
-        String getBusListQuery = "1";
-        //bandy.execSQL(getBusListQuery);
 
-        cursor = bandy.rawQuery("Select * from routeInNode where nodeid = ?;",new String[] {selectedNodeId});
+
+        //정류장 번호를 지나가는 버스 목록 받아오기
+        cursor = bandy.rawQuery("Select nodeName, routeId, routeName from routeInNode where nodeid = ?;",new String[] {selectedNodeId});
         cursor.moveToFirst();
-        Log.d("se",selectedNodeId);
-        Log.d("nodeid",cursor.getString(1));
-        Log.d("routeid",cursor.getString(2));
-        Log.d("routeno",cursor.getString(3));
+        searchedRouteCount = cursor.getCount();
+        selectedNodeName = cursor.getString(0);
+
+
+        //받아온 버스 전체 목록
+        searchedRouteIdList.clear();
+        searchedRouteNameList.clear();
+
+
+        for(int i = 0; i < cursor.getCount();i++){
+            searchedRouteIdList.add(cursor.getString(1));
+            searchedRouteNameList.add(cursor.getString(2));
+            Log.d("id",searchedRouteIdList.get(i));
+            Log.d("name",searchedRouteNameList.get(i));
+            cursor.moveToNext();
+        }
+
+
+        //받아온 버스를 리스트 뷰로 넘겨서 보여줌
+        initItem();
+        listView = findViewById(R.id.bus_listview);
+        mAdapter = new Preparation_Adapter(items);
+        listView.setAdapter(mAdapter);
     }
 
 
-    //버스 선택 후 메인액티비티로 전달
-    public void mOnBusClose(View v){
-        if(selectedRouteList == null || selectedRouteList.size() == 0){
-            bandy.close();
-            finish();
-        }else {
-            //데이터 전달하기
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("Route_List", selectedRouteList);
-            setResult(RESULT_OK, intent);
-            bandy.close();
-            //액티비티(팝업) 닫기
-            finish();
-            //}
+    private void initItem(){
+        items = new ArrayList<Preparation_item>();
+        for(int i = 0; i < searchedRouteCount;i++){
+            String sid = searchedRouteIdList.get(i);
+            String snm = searchedRouteNameList.get(i);
+            boolean b = false;
+            Preparation_item item = new Preparation_item(b, sid, snm);
+            items.add(item);
         }
     }
+
+    //버스 선택 후 메인액티비티로 전달
+    public void OnClick(View v){
+
+        //선택된 버스 목록
+        selectedRouteNameList = new ArrayList<String>();
+        selectedRouteIdList = new ArrayList<String>();
+
+        Log.d("selected1", "close");
+        for(int i = 0; i < searchedRouteCount;i++) {
+
+            //받아온 버스 중 체크박스로 체크된 것들을 리스트로 옮김.
+            if(mAdapter.isChecked(i)){
+                Preparation_item saver = (Preparation_item) mAdapter.getItem(i);
+                selectedRouteNameList.add(saver.ItemStringname);
+                selectedRouteIdList.add(saver.ItemStringid);
+
+            }
+        }
+
+
+        for(int i = 0;i < selectedRouteIdList.size();i++){
+            Log.d("selected1", selectedRouteIdList.get(i));
+            Log.d("selected2", selectedRouteNameList.get(i));
+        }
+
+
+        //체크박스에서 선택된 버스의 id, 노선번호 전달하기
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("RouteId_List", selectedRouteIdList);
+        intent.putExtra("RouteName_List",selectedRouteNameList);
+        setResult(RESULT_OK, intent);
+
+        //디비 닫기
+        bandy.close();
+
+        //액티비티(팝업) 닫기
+        finish();
+    }
+
 
     public class myDBHelper extends SQLiteOpenHelper{
         @Override
