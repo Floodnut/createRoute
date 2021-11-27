@@ -63,49 +63,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="월" />
+            android:text="월"
+            android:textColor="@color/black"/>
 
         <CheckBox
             android:id="@+id/tuesSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="화" />
+            android:text="화"
+            android:textColor="@color/black" />
 
         <CheckBox
             android:id="@+id/wednesSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="수" />
+            android:text="수"
+            android:textColor="@color/black" />
 
         <CheckBox
             android:id="@+id/thursSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="목" />
+            android:text="목"
+            android:textColor="@color/black" />
 
         <CheckBox
             android:id="@+id/friSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="금" />
+            android:text="금"
+            android:textColor="@color/black" />
 
         <CheckBox
             android:id="@+id/saturSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="토" />
+            android:text="토"
+            android:textColor="@color/black" />
 
         <CheckBox
             android:id="@+id/sunSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="일" />
+            android:text="일"
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -145,10 +152,10 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:onClick="mOnClick"
-                android:text="출발" />
-        </LinearLayout>
+                android:onClick="mOnPopupClick"
+                android:text="정류장" />
 
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -164,56 +171,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </ScrollView-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/wayPointView"
 
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/busView"
                 android:layout_width="360dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <Button
-                android:id="@+id/wayPointSelector"
+                android:id="@+id/busSelector"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:onClick="mOnClick"
-                android:text="경유" />
-        </LinearLayout>
+                android:onClick="mOnBusClick"
+                android:text="노선" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/endPointView"
-
-                android:layout_width="360dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-            <!--ScrollView
-                android:layout_width="360dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView-->
-            <Button
-                android:id="@+id/endPointSelector"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:onClick="mOnClick"
-                android:text="도착" />
         </LinearLayout>
     </LinearLayout>
 
