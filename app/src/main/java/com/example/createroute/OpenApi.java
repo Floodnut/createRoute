@@ -25,6 +25,8 @@ import javax.xml.xpath.XPathFactory;
 public class OpenApi extends AsyncTask<Void, Void, String> {
     private String url;
     private String busNum;
+    private String startPoint;
+    private String endPoint;
 
     public OpenApi(String url, String busNum) {
         this.busNum = busNum;
@@ -33,8 +35,52 @@ public class OpenApi extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        Document document = null;
+
+        DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = null;
+
+        //Document document = null;
+
         ArrayList<String> selectedBus = new ArrayList<String>();
+
+        try {
+            dBuilder = dbFactoty.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        Document doc = null;
+        try {
+            doc = dBuilder.parse(url);
+        } catch (IOException | SAXException e) {
+            e.printStackTrace();
+        }
+
+        // root tag
+        doc.getDocumentElement().normalize();
+        System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); // Root element: result
+
+        // 파싱할 tag
+        NodeList nList = doc.getElementsByTagName("item");
+
+        for(int temp = 0; temp < nList.getLength(); temp++){
+            Node nNode = nList.item(temp);
+            if(nNode.getNodeType() == Node.ELEMENT_NODE){
+
+                Element eElement = (Element) nNode;
+                Log.d("OPEN_API","노선 타입  : " + getTagValue("routetp", eElement));
+                Log.d("OPEN_API","노선 번호  : " + getTagValue("routeno", eElement));
+                Log.d("OPEN_API","노선 ID  : " + getTagValue("routeid", eElement));
+                Log.d("OPEN_API","시점 : " + getTagValue("startnodenm", eElement));
+                Log.d("OPEN_API","종점 : " + getTagValue("endnodenm", eElement));
+                selectedBus.add(getTagValue("routetp", eElement));
+                selectedBus.add(getTagValue("routeno", eElement));
+                selectedBus.add(getTagValue("routeid", eElement));
+                selectedBus.add(getTagValue("startnodenm", eElement));
+                selectedBus.add(getTagValue("endnodenm", eElement));
+            }	// for end
+        }	// if end
+
+        /*
         try {
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(url);
         } catch (IOException ioException) {
@@ -45,7 +91,7 @@ public class OpenApi extends AsyncTask<Void, Void, String> {
             parserConfigurationException.printStackTrace();
         }
 
-        // xpath 생성
+        // xpath 이용 XML 파싱
         XPath xpath = XPathFactory.newInstance().newXPath();
         NodeList cols = null;
         try {
@@ -100,9 +146,9 @@ public class OpenApi extends AsyncTask<Void, Void, String> {
             } catch (XPathExpressionException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
-        return (selectedBus.get(0)+", " + selectedBus.get(1));
+        return (selectedBus.get(0)+", " + selectedBus.get(1)+", "+selectedBus.get(2)+", " + selectedBus.get(3)+", " + selectedBus.get(4));
     }
 
     @Override

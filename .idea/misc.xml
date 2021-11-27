@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.22760416666666666" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
-        <entry key="app/src/main/res/layout/activity_route_selector.xml" value="0.18291275726788292" />
+        <entry key="app/src/main/res/layout/activity_bus_selector.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_route_selector.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/bus_listitem.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/row_listview.xml" value="0.26299694189602446" />
         <entry key="app/src/main/res/layout/start_pointview.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/time_selector.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/menu/search_menu.xml" value="0.3026041666666667" />
