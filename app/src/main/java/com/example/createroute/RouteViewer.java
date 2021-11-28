@@ -34,13 +34,14 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RouteViewer extends AppCompatActivity {
+public class RouteViewer extends AppCompatActivity implements Serializable {
 
     private final String key = "-";
     private List<String> list;
@@ -99,7 +100,7 @@ public class RouteViewer extends AppCompatActivity {
 
 
         //정류장 번호를 지나가는 버스 목록 받아오기
-        cursor = bandy.rawQuery("Select nodeName, routeId, routeName from routeInNode where nodeid = ?;",new String[] {selectedNodeId});
+        cursor = bandy.rawQuery("Select nodeName, routeId, routeName from RouteInNode where nodeid = ?;",new String[] {selectedNodeId});
         cursor.moveToFirst();
         searchedRouteCount = cursor.getCount();
         selectedNodeName = cursor.getString(0);
@@ -168,6 +169,11 @@ public class RouteViewer extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("RouteId_List", selectedRouteIdList);
         intent.putExtra("RouteName_List",selectedRouteNameList);
+
+        for(int i = 0; i< selectedRouteIdList.size();i++){
+            Log.d("before",selectedRouteIdList.get(i));
+            Log.d("before",selectedRouteNameList.get(i));
+        }
         setResult(RESULT_OK, intent);
 
         //디비 닫기
@@ -181,8 +187,8 @@ public class RouteViewer extends AppCompatActivity {
     public class myDBHelper extends SQLiteOpenHelper{
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String createNoticeQuery = "CREATE TABLE IF NOT EXISTS Notice(notiId integer primary key, notiName text, nodeId text,notiTime int ,startAt text, endAt text, days integer,  isOn integer(1));";
-            String createRouteInNoticeQuery = "CREATE TABLE IF NOT EXISTS RouteInNotice(id primary key, notiId integer, routeID text, routeName text, foreign key(notiId) references Notice(notiId));";
+            String createNoticeQuery = "CREATE TABLE IF NOT EXISTS Notice(notiId integer primary key AUTOINCREMENT, notiName text, nodeId text,notiTime int ,startAt text, endAt text, days integer,  isOn integer(1));";
+            String createRouteInNoticeQuery = "CREATE TABLE IF NOT EXISTS RouteInNotice(id integer primary key AUTOINCREMENT, notiId integer, routeID text, routeName text, foreign key(notiId) references Notice(notiId));";
             db.execSQL(createNoticeQuery);
             db.execSQL(createRouteInNoticeQuery);
         }

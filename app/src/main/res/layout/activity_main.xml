@@ -21,7 +21,9 @@
         android:inputType="textPersonName"
         android:label="route"
         android:labelFor="@+id/routeTitle"
-        android:text="" />
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -194,44 +196,60 @@
         </LinearLayout>
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <RadioGroup
+            android:id="@+id/notiTimeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButton6"
-                android:layout_width="wrap_content"
+                android:id="@+id/min10"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="10분 마"
+                android:textColor="#000000" />
 
             <RadioButton
-                android:id="@+id/radioButton7"
-                android:layout_width="wrap_content"
+                android:id="@+id/min15"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="15분 마다"
+                android:textColor="#000000" />
 
             <RadioButton
-                android:id="@+id/radioButton8"
-                android:layout_width="wrap_content"
+                android:id="@+id/min20"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="20분 마다"
+                android:textColor="#000000" />
+
         </RadioGroup>
-
+        <Button
+            android:id="@+id/alarmCreate"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:onClick="OnClick"
+            android:text="생성"
+            tools:ignore="OnClick" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <!--com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"

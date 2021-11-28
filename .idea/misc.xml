@@ -5,7 +5,7 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/activity_bus_selector.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_route_selector.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bus_listitem.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/row_listview.xml" value="0.26299694189602446" />
